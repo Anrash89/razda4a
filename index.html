@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Cashback App</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     
-    <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
-        /* Custom Animations that Tailwind CDN might miss */
+        /* Анимации */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
@@ -30,6 +27,7 @@
         .animate-pulse-slow { animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         
         body { -webkit-tap-highlight-color: transparent; }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
@@ -38,7 +36,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- ICONS (SVG Components replacing lucide-react for single file usage) ---
+        // --- ИКОНКИ (SVG компоненты) ---
         const IconBase = ({ children, className, ...props }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>{children}</svg>
         );
@@ -64,7 +62,7 @@
         const ShieldCheck = (p) => <IconBase {...p}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></IconBase>;
         const Gift = (p) => <IconBase {...p}><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></IconBase>;
 
-        // --- ДАННЫЕ ---
+        // --- КОНФИГУРАЦИЯ И ДАННЫЕ ---
         const WARNING_MSG = "⚠️ ВАЖНО: Мы НЕ переводим деньги на карту. Возврат через сертификат WB на 15-й день.";
         const POLICY_TEXT = "**Политика конфиденциальности...** (Текст политики из бота)";
 
@@ -78,7 +76,7 @@
             keyword: "опыты для детей",
             brand: "Дело в шляпе",
             description: "Полистайте отзывы 2 минуты, добавьте в корзину наш товар + 3-4 конкурента",
-            action: "Полистайте отзывы 2 минуты, добавьте в корзину наш товар\n   - Добавьте в корзину 3-4 конкурента"
+            action: "Полистайте отзывы 2 минуты, добавьте в корзину наш товар\n   - Добавьте в корзину 3-4 конкурента"
           },
           {
             id: "chem_kids",
@@ -89,7 +87,7 @@
             keyword: "опыты для детей",
             brand: "Дело в Шляпе",
             description: "Полистайте отзывы 2 минуты, добавьте в корзину наш товар + 3-4 конкурента",
-            action: "Полистайте отзывы 2 минуты, добавьте в корзину наш товар\n   - Добавьте в корзину 3-4 конкурента"
+            action: "Полистайте отзывы 2 минуты, добавьте в корзину наш товар\n   - Добавьте в корзину 3-4 конкурента"
           },
           {
             id: "chem_kids_1_0",
@@ -100,7 +98,7 @@
             keyword: "набор опытов для детей",
             brand: "Дело в Шляпе",
             description: "Полистайте отзывы 2 минуты, добавьте в корзину наш товар + 3-4 конкурента",
-            action: "Полистайте отзывы 2 минуты, добавьте в корзину наш товар\n   - Добавьте в корзину 3-4 конкурента"
+            action: "Полистайте отзывы 2 минуты, добавьте в корзину наш товар\n   - Добавьте в корзину 3-4 конкурента"
           }
         ];
 
@@ -123,7 +121,7 @@
           }
         };
 
-        // --- COMPONENTS ---
+        // --- КОМПОНЕНТЫ ---
 
         const FileUploader = ({ label, onUpload, isLoading, icon: Icon = Camera }) => {
           const [preview, setPreview] = useState(null);
@@ -184,8 +182,8 @@
               
               <div className="flex items-center justify-between mt-3">
                 <div className="flex flex-col">
-                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">Цена</span>
-                   <span className="text-sm font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-600">Бесплатно</span>
+                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">Цена</span>
+                    <span className="text-sm font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-600">Бесплатно</span>
                 </div>
                 <button className="bg-slate-900 text-white px-5 py-3 rounded-2xl text-xs font-bold shadow-lg shadow-slate-200 transition-all group-hover:bg-violet-600 group-hover:shadow-violet-200 group-hover:scale-105">
                   Забрать
@@ -279,21 +277,21 @@
                     </div>
 
                     <div className="bg-white/70 backdrop-blur-md p-6 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(99,102,241,0.1)] transition-shadow duration-500">
-                       <div className="absolute -top-10 -right-10 w-40 h-40 bg-violet-100 rounded-full blur-3xl opacity-50 pointer-events-none" />
-                       <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-fuchsia-100 rounded-full blur-3xl opacity-50 pointer-events-none" />
-                       
+                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-violet-100 rounded-full blur-3xl opacity-50 pointer-events-none" />
+                        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-fuchsia-100 rounded-full blur-3xl opacity-50 pointer-events-none" />
+                        
                       <h2 className="text-2xl font-extrabold text-slate-800 mb-4 relative z-10">Найдите товар</h2>
                       
                       <div className="mb-6 relative z-10 text-sm text-slate-600 space-y-3 bg-slate-50/80 p-5 rounded-[24px] border border-slate-100">
-                         <div className="flex items-center gap-3">
-                            <span className="w-6 h-6 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-xs font-bold">1</span>
-                            <p>WB Поиск: <b className="text-slate-900">{order.product.keyword}</b></p>
-                         </div>
-                         <div className="flex items-center gap-3">
-                            <span className="w-6 h-6 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-xs font-bold">2</span>
-                            <p>Бренд: <b className="text-slate-900">{order.product.brand}</b></p>
-                         </div>
-                         <div className="pl-9 text-xs text-slate-500 italic leading-relaxed border-l-2 border-violet-100 ml-3">{order.product.action}</div>
+                          <div className="flex items-center gap-3">
+                             <span className="w-6 h-6 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-xs font-bold">1</span>
+                             <p>WB Поиск: <b className="text-slate-900">{order.product.keyword}</b></p>
+                          </div>
+                          <div className="flex items-center gap-3">
+                             <span className="w-6 h-6 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-xs font-bold">2</span>
+                             <p>Бренд: <b className="text-slate-900">{order.product.brand}</b></p>
+                          </div>
+                          <div className="pl-9 text-xs text-slate-500 italic leading-relaxed border-l-2 border-violet-100 ml-3">{order.product.action}</div>
                       </div>
                       
                       <div 
@@ -311,10 +309,10 @@
                     </div>
 
                     <div className="bg-white/70 backdrop-blur-md p-6 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white">
-                       <h3 className="text-sm font-bold text-slate-800 mb-4 flex items-center uppercase tracking-wide opacity-70 ml-2">
-                         Подтверждение заказа
-                       </h3>
-                       <FileUploader label="Скриншот заказа (Оплата)" onUpload={() => {}} isLoading={loading} />
+                        <h3 className="text-sm font-bold text-slate-800 mb-4 flex items-center uppercase tracking-wide opacity-70 ml-2">
+                          Подтверждение заказа
+                        </h3>
+                        <FileUploader label="Скриншот заказа (Оплата)" onUpload={() => {}} isLoading={loading} />
                     </div>
 
                     <button onClick={handleAction} disabled={loading} className={MAIN_BTN_CLASS}>
@@ -326,70 +324,70 @@
               case 'WAITING_PICKUP':
                 return (
                   <div className="space-y-6 text-center pt-8 animate-slideUp">
-                     <div className="relative inline-block mb-6">
+                      <div className="relative inline-block mb-6">
                         <div className="w-32 h-32 bg-gradient-to-tr from-orange-100 to-amber-50 rounded-full flex items-center justify-center mx-auto animate-pulse-slow shadow-xl shadow-orange-100/50 ring-8 ring-white">
                            <MapPin className="w-14 h-14 text-orange-400 drop-shadow-sm" />
                         </div>
                         <div className="absolute -bottom-2 -right-2 bg-white p-3 rounded-2xl shadow-lg border border-slate-50">
                            <Clock className="w-6 h-6 text-orange-400" />
                         </div>
-                     </div>
-                     
-                     <div>
-                       <h2 className="text-3xl font-extrabold text-slate-800 mb-2">Товар в пути</h2>
-                       <p className="text-slate-500 text-sm mt-3 max-w-[280px] mx-auto leading-relaxed font-medium">
-                         Как заберете товар из ПВЗ — сделайте фото коробки и нажмите кнопку.
-                       </p>
-                     </div>
+                      </div>
+                      
+                      <div>
+                        <h2 className="text-3xl font-extrabold text-slate-800 mb-2">Товар в пути</h2>
+                        <p className="text-slate-500 text-sm mt-3 max-w-[280px] mx-auto leading-relaxed font-medium">
+                          Как заберете товар из ПВЗ — сделайте фото коробки и нажмите кнопку.
+                        </p>
+                      </div>
 
-                     <div className="bg-white/80 backdrop-blur-md p-6 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white text-left mt-8">
-                       <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase tracking-wide opacity-70 ml-2">Фото товара</h3>
-                       <FileUploader label="Фото товара из ПВЗ" onUpload={() => {}} isLoading={loading} icon={Camera} />
-                     </div>
+                      <div className="bg-white/80 backdrop-blur-md p-6 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white text-left mt-8">
+                        <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase tracking-wide opacity-70 ml-2">Фото товара</h3>
+                        <FileUploader label="Фото товара из ПВЗ" onUpload={() => {}} isLoading={loading} icon={Camera} />
+                      </div>
 
-                     <button onClick={handleAction} disabled={loading} className={MAIN_BTN_CLASS}>
-                       {loading ? <><Loader className="w-5 h-5 mr-2 animate-spin"/> Загрузка...</> : "Я забрал товар (Скрин)"}
-                     </button>
+                      <button onClick={handleAction} disabled={loading} className={MAIN_BTN_CLASS}>
+                        {loading ? <><Loader className="w-5 h-5 mr-2 animate-spin"/> Загрузка...</> : "Я забрал товар (Скрин)"}
+                      </button>
                   </div>
                 );
 
               case 'DRAFT_MODE':
                 return (
-                   <div className="space-y-5 animate-slideUp">
+                    <div className="space-y-5 animate-slideUp">
                       <div className="bg-white/80 backdrop-blur-md p-7 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white relative">
-                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-400 to-fuchsia-400 opacity-50" />
-                        <h2 className="font-extrabold text-slate-800 text-xl mb-1">Ваш отзыв</h2>
-                        <p className="text-xs text-slate-400 font-medium mb-6">Мы проверим текст перед публикацией</p>
-                        
-                        <div className="space-y-6">
-                          <div>
-                            <label className="block text-xs font-bold text-slate-400 mb-3 ml-2 uppercase tracking-wider">1. Текст отзыва</label>
-                            <textarea 
-                              className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:bg-white focus:border-violet-300 focus:shadow-xl focus:shadow-violet-100 outline-none text-sm min-h-[140px] transition-all placeholder:text-slate-300 resize-none font-medium text-slate-700"
-                              placeholder="Товар отличный, детям понравилось..."
-                            />
-                          </div>
-                          
-                          <div>
-                            <label className="block text-xs font-bold text-slate-400 mb-3 ml-2 uppercase tracking-wider">2. Фото/Видео</label>
-                            <div className="grid grid-cols-2 gap-3">
-                              <FileUploader label="Фото" onUpload={()=>{}} />
-                              <FileUploader label="Видео (опц)" onUpload={()=>{}} />
-                            </div>
-                          </div>
-                        </div>
+                          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-400 to-fuchsia-400 opacity-50" />
+                         <h2 className="font-extrabold text-slate-800 text-xl mb-1">Ваш отзыв</h2>
+                         <p className="text-xs text-slate-400 font-medium mb-6">Мы проверим текст перед публикацией</p>
+                         
+                         <div className="space-y-6">
+                           <div>
+                             <label className="block text-xs font-bold text-slate-400 mb-3 ml-2 uppercase tracking-wider">1. Текст отзыва</label>
+                             <textarea 
+                               className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:bg-white focus:border-violet-300 focus:shadow-xl focus:shadow-violet-100 outline-none text-sm min-h-[140px] transition-all placeholder:text-slate-300 resize-none font-medium text-slate-700"
+                               placeholder="Товар отличный, детям понравилось..."
+                             />
+                           </div>
+                           
+                           <div>
+                             <label className="block text-xs font-bold text-slate-400 mb-3 ml-2 uppercase tracking-wider">2. Фото/Видео</label>
+                             <div className="grid grid-cols-2 gap-3">
+                               <FileUploader label="Фото" onUpload={()=>{}} />
+                               <FileUploader label="Видео (опц)" onUpload={()=>{}} />
+                             </div>
+                           </div>
+                         </div>
                       </div>
 
                       <button onClick={handleAction} disabled={loading} className={MAIN_BTN_CLASS}>
-                         {loading ? <><Loader className="w-5 h-5 mr-2 animate-spin"/> Отправляем...</> : "Отправить материалы"}
+                          {loading ? <><Loader className="w-5 h-5 mr-2 animate-spin"/> Отправляем...</> : "Отправить материалы"}
                       </button>
-                   </div>
+                    </div>
                 );
 
               case 'POSTING_REVIEW':
                 return (
                   <div className="space-y-6 pt-4 animate-slideUp">
-                     <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-[32px] border border-amber-100 text-center relative overflow-hidden shadow-sm">
+                      <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-[32px] border border-amber-100 text-center relative overflow-hidden shadow-sm">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-amber-100 rounded-full blur-3xl opacity-60 pointer-events-none" />
                         
                         <div className="relative z-10">
@@ -406,64 +404,64 @@
                             </div>
                           </div>
                         </div>
-                     </div>
+                      </div>
 
-                     <div className="bg-white/80 backdrop-blur-md p-6 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white">
-                       <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase tracking-wide opacity-70 ml-2">Скриншот отзыва</h3>
-                       <FileUploader label="Скриншот с WB" onUpload={() => {}} icon={Upload} />
-                     </div>
+                      <div className="bg-white/80 backdrop-blur-md p-6 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white">
+                        <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase tracking-wide opacity-70 ml-2">Скриншот отзыва</h3>
+                        <FileUploader label="Скриншот с WB" onUpload={() => {}} icon={Upload} />
+                      </div>
 
-                     <button onClick={handleAction} disabled={loading} className={MAIN_BTN_CLASS}>
-                       {loading ? <><Loader className="w-5 h-5 mr-2 animate-spin"/> Проверяем...</> : "Я опубликовал (Скрин)"}
-                     </button>
+                      <button onClick={handleAction} disabled={loading} className={MAIN_BTN_CLASS}>
+                        {loading ? <><Loader className="w-5 h-5 mr-2 animate-spin"/> Проверяем...</> : "Я опубликовал (Скрин)"}
+                      </button>
                   </div>
                 );
               
               case 'PAYMENT_DATA':
                 return (
                   <div className="space-y-6 pt-4 animate-slideUp">
-                     <div className="bg-rose-50 p-6 rounded-[32px] border border-rose-100 text-center relative overflow-hidden">
-                         <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-rose-100 rotate-3">
-                            <ShieldCheck className="w-8 h-8 text-rose-500" />
-                         </div>
-                         <h3 className="text-rose-950 font-extrabold mb-2 text-lg">Важная информация!</h3>
-                         <p className="text-sm text-rose-800/80 leading-relaxed font-medium">
-                           Мы НЕ переводим деньги на карту.<br/>
-                           Возврат через <b className="text-rose-600">сертификат WB</b> на 15-й день.
-                         </p>
-                     </div>
+                      <div className="bg-rose-50 p-6 rounded-[32px] border border-rose-100 text-center relative overflow-hidden">
+                          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-rose-100 rotate-3">
+                             <ShieldCheck className="w-8 h-8 text-rose-500" />
+                          </div>
+                          <h3 className="text-rose-950 font-extrabold mb-2 text-lg">Важная информация!</h3>
+                          <p className="text-sm text-rose-800/80 leading-relaxed font-medium">
+                            Мы НЕ переводим деньги на карту.<br/>
+                            Возврат через <b className="text-rose-600">сертификат WB</b> на 15-й день.
+                          </p>
+                      </div>
 
-                     <div className="bg-white/80 backdrop-blur-md p-7 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white space-y-6">
-                       <h3 className="text-xl font-extrabold text-slate-800">Реквизиты</h3>
-                       
-                       <div className="space-y-4">
-                         <div className="group">
-                           <label className="block text-[10px] font-extrabold text-slate-400 uppercase mb-2 ml-4 tracking-widest group-focus-within:text-violet-500 transition-colors">Сумма выкупа (₽)</label>
-                           <input 
-                             type="number" 
-                             value={paymentData.sum}
-                             onChange={(e) => setPaymentData({...paymentData, sum: e.target.value})}
-                             placeholder="745"
-                             className="w-full p-5 bg-slate-50 rounded-[24px] border-2 border-transparent focus:bg-white focus:border-violet-300 focus:shadow-xl focus:shadow-violet-100 outline-none font-bold text-xl text-slate-800 transition-all placeholder:text-slate-300 placeholder:font-normal"
-                           />
-                         </div>
+                      <div className="bg-white/80 backdrop-blur-md p-7 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white space-y-6">
+                        <h3 className="text-xl font-extrabold text-slate-800">Реквизиты</h3>
+                        
+                        <div className="space-y-4">
+                          <div className="group">
+                            <label className="block text-[10px] font-extrabold text-slate-400 uppercase mb-2 ml-4 tracking-widest group-focus-within:text-violet-500 transition-colors">Сумма выкупа (₽)</label>
+                            <input 
+                              type="number" 
+                              value={paymentData.sum}
+                              onChange={(e) => setPaymentData({...paymentData, sum: e.target.value})}
+                              placeholder="745"
+                              className="w-full p-5 bg-slate-50 rounded-[24px] border-2 border-transparent focus:bg-white focus:border-violet-300 focus:shadow-xl focus:shadow-violet-100 outline-none font-bold text-xl text-slate-800 transition-all placeholder:text-slate-300 placeholder:font-normal"
+                            />
+                          </div>
 
-                         <div className="group">
-                           <label className="block text-[10px] font-extrabold text-slate-400 uppercase mb-2 ml-4 tracking-widest group-focus-within:text-violet-500 transition-colors">Номер телефона</label>
-                           <input 
-                             type="tel" 
-                             value={paymentData.phone}
-                             onChange={(e) => setPaymentData({...paymentData, phone: e.target.value})}
-                             placeholder="89001234567"
-                             className="w-full p-5 bg-slate-50 rounded-[24px] border-2 border-transparent focus:bg-white focus:border-violet-300 focus:shadow-xl focus:shadow-violet-100 outline-none font-bold text-xl text-slate-800 transition-all placeholder:text-slate-300 placeholder:font-normal"
-                           />
-                         </div>
-                       </div>
-                     </div>
+                          <div className="group">
+                            <label className="block text-[10px] font-extrabold text-slate-400 uppercase mb-2 ml-4 tracking-widest group-focus-within:text-violet-500 transition-colors">Номер телефона</label>
+                            <input 
+                              type="tel" 
+                              value={paymentData.phone}
+                              onChange={(e) => setPaymentData({...paymentData, phone: e.target.value})}
+                              placeholder="89001234567"
+                              className="w-full p-5 bg-slate-50 rounded-[24px] border-2 border-transparent focus:bg-white focus:border-violet-300 focus:shadow-xl focus:shadow-violet-100 outline-none font-bold text-xl text-slate-800 transition-all placeholder:text-slate-300 placeholder:font-normal"
+                            />
+                          </div>
+                        </div>
+                      </div>
 
-                     <button onClick={handleAction} disabled={loading} className={MAIN_BTN_CLASS}>
-                       {loading ? <><Loader className="w-5 h-5 mr-2 animate-spin"/> Отправляем...</> : "Получить CashBack"}
-                     </button>
+                      <button onClick={handleAction} disabled={loading} className={MAIN_BTN_CLASS}>
+                        {loading ? <><Loader className="w-5 h-5 mr-2 animate-spin"/> Отправляем...</> : "Получить CashBack"}
+                      </button>
                   </div>
                 );
 
@@ -473,7 +471,7 @@
                     <div className="relative">
                       <div className="absolute inset-0 bg-emerald-200 blur-3xl opacity-30 rounded-full animate-pulse-slow"></div>
                       <div className="w-40 h-40 bg-gradient-to-tr from-emerald-50 to-teal-50 rounded-full flex items-center justify-center mx-auto shadow-2xl shadow-emerald-100 border-4 border-white">
-                         <Gift className="w-20 h-20 text-emerald-500 drop-shadow-sm" />
+                          <Gift className="w-20 h-20 text-emerald-500 drop-shadow-sm" />
                       </div>
                       <div className="absolute -right-2 top-0 bg-amber-400 text-white p-3 rounded-full rotate-12 shadow-lg ring-4 ring-white">
                         <Star className="w-8 h-8 fill-current" />
@@ -488,15 +486,15 @@
                     </div>
 
                     <div className="bg-white/80 backdrop-blur-xl px-10 py-6 rounded-[32px] shadow-xl shadow-slate-200/50 border border-white w-full max-w-xs mx-auto">
-                       <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-2">Дата выплаты</p>
-                       <p className="text-3xl font-black text-slate-800 tracking-tight">15.01</p>
+                        <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-2">Дата выплаты</p>
+                        <p className="text-3xl font-black text-slate-800 tracking-tight">15.01</p>
                     </div>
                     
                     <button onClick={onBack} className="text-violet-600 font-bold py-4 px-8 rounded-2xl hover:bg-violet-50 transition-colors w-full">
                       Вернуться в меню
                     </button>
                   </div>
-                )
+                );
               default: return null;
             }
           };
@@ -512,7 +510,7 @@
 
               <div className="bg-white/60 backdrop-blur-xl sticky top-0 z-30 px-6 py-4 shadow-sm border-b border-white/50 flex items-center justify-between">
                 <button onClick={onBack} className="w-11 h-11 bg-white rounded-full flex items-center justify-center text-slate-500 shadow-sm border border-slate-100 hover:text-violet-600 hover:border-violet-200 transition-all active:scale-90">
-                   <ChevronLeft className="w-6 h-6" />
+                    <ChevronLeft className="w-6 h-6" />
                 </button>
                 <span className="font-bold text-slate-800 text-sm max-w-[200px] truncate">{order.product.name}</span>
                 <div className="w-11" /> 
@@ -553,10 +551,10 @@
                 className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-all duration-300 group ${isActive ? 'text-violet-600' : 'text-slate-400 hover:text-slate-500'}`}
               >
                 <div className={`relative p-2 rounded-2xl transition-all duration-500 ${isActive ? '-translate-y-3 bg-white shadow-lg shadow-indigo-100' : 'group-active:scale-90'}`}>
-                   <Icon className={`w-6 h-6 ${isActive ? 'fill-violet-500 text-violet-600' : 'stroke-[2px]'}`} />
-                   {tab === 'orders' && activeOrder && activeOrder.status !== 'COMPLETED' && (
-                     <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-rose-500 rounded-full border-[3px] border-white animate-pulse shadow-sm" />
-                   )}
+                    <Icon className={`w-6 h-6 ${isActive ? 'fill-violet-500 text-violet-600' : 'stroke-[2px]'}`} />
+                    {tab === 'orders' && activeOrder && activeOrder.status !== 'COMPLETED' && (
+                      <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-rose-500 rounded-full border-[3px] border-white animate-pulse shadow-sm" />
+                    )}
                 </div>
                 <span className={`text-[10px] font-bold ${isActive ? 'opacity-100 translate-y-[-8px]' : 'opacity-0 scale-0 h-0'} transition-all duration-300`}>
                   {label}
@@ -565,7 +563,7 @@
             );
           };
 
-          const renderContent = () => {
+          const renderScreen = () => {
             if (showPolicy) {
                return (
                  <div className="p-6 pt-8 animate-fadeIn min-h-screen bg-slate-50/50 backdrop-blur-sm z-50">
@@ -575,12 +573,12 @@
                     <h1 className="text-3xl font-black text-slate-800 mb-6 tracking-tight">Правила сервиса</h1>
                     <div className="bg-white p-8 rounded-[32px] shadow-sm border border-white/60">
                       <div className="prose text-sm text-slate-600 whitespace-pre-wrap leading-relaxed">
-                         {POLICY_TEXT}
-                         <br/><br/>
-                         <div className="bg-rose-50 p-5 rounded-2xl border border-rose-100 text-rose-800 font-medium flex items-start gap-3">
-                            <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                            {WARNING_MSG}
-                         </div>
+                          {POLICY_TEXT}
+                          <br/><br/>
+                          <div className="bg-rose-50 p-5 rounded-2xl border border-rose-100 text-rose-800 font-medium flex items-start gap-3">
+                             <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                             {WARNING_MSG}
+                          </div>
                       </div>
                     </div>
                  </div>
@@ -602,20 +600,20 @@
                   </header>
                   
                   <div className="mb-6">
-                     <div className="flex items-center justify-between mb-6">
-                       <h2 className="text-xl font-bold text-slate-800 flex items-center">
+                      <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-xl font-bold text-slate-800 flex items-center">
                           🔥 Горячее
-                       </h2>
-                       <div className="flex items-center text-xs font-bold text-slate-400 bg-white px-3 py-1 rounded-full shadow-sm">
-                         <Clock className="w-3 h-3 mr-1" />
-                         Обновлено 1ч назад
-                       </div>
-                     </div>
-                     <div className="grid gap-2">
-                       {PRODUCTS.map(p => (
-                         <ProductCard key={p.id} product={p} onSelect={startOrder} />
-                       ))}
-                     </div>
+                        </h2>
+                        <div className="flex items-center text-xs font-bold text-slate-400 bg-white px-3 py-1 rounded-full shadow-sm">
+                          <Clock className="w-3 h-3 mr-1" />
+                          Обновлено 1ч назад
+                        </div>
+                      </div>
+                      <div className="grid gap-2">
+                        {PRODUCTS.map(p => (
+                          <ProductCard key={p.id} product={p} onSelect={startOrder} />
+                        ))}
+                      </div>
                   </div>
                 </div>
               );
@@ -652,14 +650,14 @@
                     <div>
                       <h2 className="text-3xl font-black text-slate-800 tracking-tight">User</h2>
                       <div className="inline-flex items-center mt-2 px-3 py-1 bg-white rounded-lg text-xs font-bold text-slate-500 shadow-sm border border-slate-100">
-                         <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
-                         Online
+                          <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
+                          Online
                       </div>
                     </div>
                   </div>
 
                   <div className="bg-white/70 backdrop-blur-md p-1 rounded-[36px] border border-white shadow-sm space-y-1">
-                       <button className="w-full bg-white p-5 rounded-[32px] flex items-center justify-between shadow-sm active:scale-[0.98] transition-all hover:bg-violet-50 group border border-transparent hover:border-violet-100">
+                        <button className="w-full bg-white p-5 rounded-[32px] flex items-center justify-between shadow-sm active:scale-[0.98] transition-all hover:bg-violet-50 group border border-transparent hover:border-violet-100">
                           <div className="flex items-center gap-4">
                              <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-500 flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
                                 <Clock className="w-6 h-6" />
@@ -667,9 +665,9 @@
                              <span className="font-bold text-slate-700 text-lg group-hover:text-indigo-600 transition-colors">История</span>
                           </div>
                           <ChevronRight className="w-6 h-6 text-slate-300 group-hover:text-indigo-400" />
-                       </button>
+                        </button>
 
-                       <button className="w-full bg-white p-5 rounded-[32px] flex items-center justify-between shadow-sm active:scale-[0.98] transition-all hover:bg-violet-50 group border border-transparent hover:border-violet-100">
+                        <button className="w-full bg-white p-5 rounded-[32px] flex items-center justify-between shadow-sm active:scale-[0.98] transition-all hover:bg-violet-50 group border border-transparent hover:border-violet-100">
                           <div className="flex items-center gap-4">
                              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-500 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
                                 <User className="w-6 h-6" />
@@ -680,9 +678,9 @@
                              </div>
                           </div>
                           <ChevronRight className="w-6 h-6 text-slate-300 group-hover:text-emerald-400" />
-                       </button>
+                        </button>
 
-                       <button onClick={() => setShowPolicy(true)} className="w-full bg-white p-5 rounded-[32px] flex items-center justify-between shadow-sm active:scale-[0.98] transition-all hover:bg-violet-50 group border border-transparent hover:border-violet-100">
+                        <button onClick={() => setShowPolicy(true)} className="w-full bg-white p-5 rounded-[32px] flex items-center justify-between shadow-sm active:scale-[0.98] transition-all hover:bg-violet-50 group border border-transparent hover:border-violet-100">
                           <div className="flex items-center gap-4">
                              <div className="w-12 h-12 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center group-hover:bg-rose-100 transition-colors">
                                 <ShieldCheck className="w-6 h-6" />
@@ -690,37 +688,35 @@
                              <span className="font-bold text-slate-700 text-lg group-hover:text-rose-600 transition-colors">Правила</span>
                           </div>
                           <ChevronRight className="w-6 h-6 text-slate-300 group-hover:text-rose-400" />
-                       </button>
+                        </button>
                   </div>
                 </div>
               );
             }
+          };
 
-            if (activeTab === 'home') {
-                // ... (Этот блок дублируется в моем примере, но в реальности он один. Я просто повторяю для целостности структуры в <script>)
-                // Логика renderContent уже содержит все условия.
-            }
-            
-            return (
-              <div className="bg-slate-50 min-h-screen pb-28 relative overflow-hidden">
-                {/* Background Blobs */}
-                <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                    <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[50%] bg-violet-200/30 rounded-full blur-[100px]" />
-                    <div className="absolute top-[30%] -right-[10%] w-[60%] h-[60%] bg-indigo-200/30 rounded-full blur-[100px]" />
-                    <div className="absolute -bottom-[10%] left-[20%] w-[50%] h-[40%] bg-fuchsia-100/40 rounded-full blur-[100px]" />
-                </div>
-
-                {(!activeOrder || activeTab !== 'orders') && !showPolicy && (
-                  <div className="fixed bottom-0 inset-x-0 bg-white/70 backdrop-blur-xl border-t border-white/50 pb-safe h-[96px] px-8 flex justify-between items-start pt-2 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.03)] rounded-t-[40px]">
-                    <NavButton tab="home" icon={Home} label="Главная" />
-                    <NavButton tab="orders" icon={ShoppingBag} label="Заказы" />
-                    <NavButton tab="profile" icon={User} label="Профиль" />
-                  </div>
-                )}
-                
-                {renderContent()}
+          return (
+            <div className="bg-slate-50 min-h-screen pb-28 relative overflow-hidden">
+              {/* Background Blobs */}
+              <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+                  <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[50%] bg-violet-200/30 rounded-full blur-[100px]" />
+                  <div className="absolute top-[30%] -right-[10%] w-[60%] h-[60%] bg-indigo-200/30 rounded-full blur-[100px]" />
+                  <div className="absolute -bottom-[10%] left-[20%] w-[50%] h-[40%] bg-fuchsia-100/40 rounded-full blur-[100px]" />
               </div>
-            );
+
+              {/* Рендеринг контента */}
+              {renderScreen()}
+
+              {/* Нижняя навигация (скрываем если активен заказ или политика) */}
+              {(!activeOrder || activeTab !== 'orders') && !showPolicy && (
+                <div className="fixed bottom-0 inset-x-0 bg-white/70 backdrop-blur-xl border-t border-white/50 pb-safe h-[96px] px-8 flex justify-between items-start pt-2 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.03)] rounded-t-[40px]">
+                  <NavButton tab="home" icon={Home} label="Главная" />
+                  <NavButton tab="orders" icon={ShoppingBag} label="Заказы" />
+                  <NavButton tab="profile" icon={User} label="Профиль" />
+                </div>
+              )}
+            </div>
+          );
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
